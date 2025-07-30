@@ -1,176 +1,128 @@
-// document.getElementById("verifyButton").addEventListener("click", function () {
-//   const userVerified = confirm(
-//     "Have you followed on Instagram, subscribed on YouTube, and joined the WhatsApp group?"
-//   );
+// Progress tracking
+let progress = 0;
+const progressFill = document.getElementById("progressFill");
+const messageEl = document.getElementById("message");
 
-//   if (userVerified) {
-//     document.getElementById("message").textContent =
-//       "Verification successful! You can now download the file.";
-//     document.getElementById("downloadButton").style.display = "inline-block";
-//     document.getElementById("verifyButton").disabled = true;
-//   } else {
-//     document.getElementById("message").textContent =
-//       "Please complete all steps first.";
-//   }
-// });
-// // Enable verify button after some delay to simulate time spent on actions
-// setTimeout(() => {
-//   document.getElementById("verifyButton").disabled = false;
-// }, 3000);
+function updateProgress(value) {
+  progress = value;
+  progressFill.style.width = progress + "%";
+}
 
-// document
-//   .getElementById("downloadButton")
-//   .addEventListener("click", function () {
-//     window.location.href =
-//       "https://drive.google.com/file/d/17rbiDBRFL5pvs7TAIJ0oj9btBNtfPjrC/view?usp=sharing";
-//   });
-
-// function setCookie(name, value, days) {
-//   let expires = "";
-//   if (days) {
-//     let date = new Date();
-//     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-//     expires = "; expires=" + date.toUTCString();
-//   }
-//   document.cookie = name + "=" + value + expires + "; path=/";
-// }
-
-// function getCookie(name) {
-//   let nameEQ = name + "=";
-//   let ca = document.cookie.split(";");
-//   for (let i = 0; i < ca.length; i++) {
-//     let c = ca[i];
-//     while (c.charAt(0) === " ") c = c.substring(1, c.length);
-//     if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-//   }
-//   return null;
-// }
-
-// if (getCookie("verified") === "true") {
-//   document.getElementById("verifyButton").disabled = true;
-//   document.getElementById("downloadButton").style.display = "inline-block";
-//   document.getElementById("message").textContent = "You have already verified!";
-// }
-
-// document.getElementById("verifyButton").addEventListener("click", function () {
-//   const userVerified = confirm(
-//     "Have you followed on Instagram, subscribed on YouTube, and joined the WhatsApp group?"
-//   );
-//   if (userVerified) {
-//     setCookie("verified", "true", 7);
-//     document.getElementById("message").textContent =
-//       "Verification successful! You can now download the file.";
-//     document.getElementById("downloadButton").style.display = "inline-block";
-//     document.getElementById("verifyButton").disabled = true;
-//   }
-// });
-
-// document.getElementById("verifyButton").addEventListener("click", function () {
-//   // Prompt user to confirm if they have followed and subscribed
-//   const instagramFollowed = confirm("Did you follow us on Instagram?");
-//   const youtubeSubscribed = confirm(
-//     "Did you subscribe to our YouTube channel?"
-//   );
-//   const whatsappJoined = confirm("Did you join our WhatsApp group?");
-
-//   if (instagramFollowed && youtubeSubscribed && whatsappJoined) {
-//     document.getElementById("message").textContent =
-//       "Verification successful! You can now download the file.";
-//     document.getElementById("downloadButton").style.display = "inline-block";
-//     document.getElementById("verifyButton").disabled = true;
-//   } else {
-//     document.getElementById("message").textContent =
-//       "Please complete all steps before downloading.";
-//   }
-// });
-
-// // Enable the verify button after a delay (optional simulation for more realistic interaction)
-// setTimeout(() => {
-//   document.getElementById("verifyButton").disabled = false;
-// }, 3000);
-
-// document
-//   .getElementById("downloadButton")
-//   .addEventListener("click", function () {
-//     // Allow download only if the verification was successful
-//     window.location.href =
-//       "https://drive.google.com/uc?export=download&id=1neJ26L6eTmKXz8uoDRq2jskpAmkTV0CV";
-//   });
-
-// document.getElementById("verifyButton").addEventListener("click", function () {
-//   // Prompt user to confirm if they have followed and subscribed
-//   const instagramFollowed = confirm("Did you follow us on Instagram?");
-//   const youtubeSubscribed = confirm(
-//     "Did you subscribe to our YouTube channel?"
-//   );
-//   const whatsappJoined = confirm("Did you join our WhatsApp group?");
-
-//   if (instagramFollowed && youtubeSubscribed && whatsappJoined) {
-//     document.getElementById("message").textContent =
-//       "Verification successful! You can now download the file.";
-//     document.getElementById("downloadButton").style.display = "inline-block";
-//     document.getElementById("verifyButton").disabled = true;
-//   } else {
-//     document.getElementById("message").textContent =
-//       "Please complete all steps before downloading.";
-//   }
-// });
-
-// // Enable the verify button after a delay (optional simulation for more realistic interaction)
-// setTimeout(() => {
-//   document.getElementById("verifyButton").disabled = false;
-// }, 3000);
-
-// document
-//   .getElementById("downloadButton")
-//   .addEventListener("click", function () {
-//     // Allow download only if the verification was successful
-//     window.location.href =
-//       "https://drive.google.com/uc?export=download&id=1neJ26L6eTmKXz8uoDRq2jskpAmkTV0CV";
-
-//     // Disable the download button after the file is downloaded
-//     document.getElementById("downloadButton").textContent = "File Downloaded";
-//     document.getElementById("downloadButton").disabled = true;
-//   });
+function showMessage(text, type = "info") {
+  messageEl.textContent = text;
+  messageEl.className = `show message-${type}`;
+  setTimeout(() => {
+    messageEl.classList.remove("show");
+  }, 5000);
+}
 
 // Initially disable the verify button
 document.getElementById("verifyButton").disabled = true;
 
 // Monitor when the WhatsApp link is clicked
 document.querySelector(".whatsapp-link").addEventListener("click", function () {
-  // Simulate the user completing the third task (joining WhatsApp group)
+  // Mark step 3 as completed
+  document.getElementById("step3").style.background =
+    "linear-gradient(135deg, #d4edda, #c3e6cb)";
+  document.getElementById("step3").style.borderLeftColor = "#28a745";
+
+  // Simulate the user completing the third task
   setTimeout(() => {
-    document.getElementById("message").textContent =
-      "You have joined the WhatsApp group. You can now verify the actions.";
-    document.getElementById("verifyButton").disabled = false; // Enable the verify button after the WhatsApp link is clicked
-  }, 2000); // Optional delay to simulate action completion
+    showMessage(
+      "You have joined the WhatsApp group. You can now verify the actions.",
+      "success"
+    );
+    document.getElementById("verifyButton").disabled = false;
+    document.getElementById("verifyButton").classList.remove("pulse");
+    updateProgress(33);
+  }, 2000);
 });
 
 // Verify actions when the verify button is clicked
 document.getElementById("verifyButton").addEventListener("click", function () {
-  // Prompt user to confirm if they have followed and subscribed
   const instagramFollowed = confirm("Did you follow us on Instagram?");
   const youtubeSubscribed = confirm(
     "Did you subscribe to our YouTube channel?"
   );
 
   if (instagramFollowed && youtubeSubscribed) {
-    document.getElementById("message").textContent =
-      "Verification successful! You can now download the file.";
+    // Mark steps 1 and 2 as completed
+    if (instagramFollowed) {
+      document.getElementById("step1").style.background =
+        "linear-gradient(135deg, #d4edda, #c3e6cb)";
+      document.getElementById("step1").style.borderLeftColor = "#28a745";
+    }
+    if (youtubeSubscribed) {
+      document.getElementById("step2").style.background =
+        "linear-gradient(135deg, #d4edda, #c3e6cb)";
+      document.getElementById("step2").style.borderLeftColor = "#28a745";
+    }
+
+    updateProgress(100);
+    showMessage(
+      "Verification successful! You can now download the file.",
+      "success"
+    );
     document.getElementById("downloadButton").style.display = "inline-block";
     document.getElementById("verifyButton").disabled = true;
+
+    // Add animation to download button
+    setTimeout(() => {
+      document.getElementById("downloadButton").classList.add("pulse");
+    }, 500);
   } else {
-    document.getElementById("message").textContent =
-      "Please complete all steps before downloading.";
+    showMessage("Please complete all steps before downloading.", "error");
+    updateProgress(33); // Reset to WhatsApp step only
   }
 });
 
-// Handle file download and disable the download button after downloading
+// Handle file download
 document
   .getElementById("downloadButton")
   .addEventListener("click", function () {
     window.location.href =
       "https://drive.usercontent.google.com/download?id=17rbiDBRFL5pvs7TAIJ0oj9btBNtfPjrC&export=download&authuser=0";
-    document.getElementById("downloadButton").textContent = "File Downloaded";
-    document.getElementById("downloadButton").disabled = true;
+
+    this.innerHTML = '<i class="fas fa-check"></i> File Downloaded';
+    this.disabled = true;
+    this.classList.remove("pulse");
+    showMessage("File download started successfully!", "success");
+    updateProgress(100);
   });
+
+// Add click tracking for social links
+document.querySelectorAll(".step-link").forEach((link) => {
+  link.addEventListener("click", function () {
+    const step = this.closest(".step");
+    step.style.transform = "scale(0.98)";
+    setTimeout(() => {
+      step.style.transform = "";
+    }, 150);
+  });
+});
+
+// Optional: Add keyboard accessibility
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Enter" || e.key === " ") {
+    const activeElement = document.activeElement;
+    if (activeElement.tagName === "BUTTON" && !activeElement.disabled) {
+      activeElement.click();
+    }
+  }
+});
+
+// Optional: Add smooth scrolling for better UX
+window.addEventListener("load", function () {
+  document.body.style.scrollBehavior = "smooth";
+});
+
+// Optional: Add loading state management
+function setLoadingState(element, isLoading) {
+  if (isLoading) {
+    element.style.opacity = "0.7";
+    element.style.pointerEvents = "none";
+  } else {
+    element.style.opacity = "1";
+    element.style.pointerEvents = "auto";
+  }
+}
