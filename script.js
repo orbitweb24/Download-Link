@@ -170,7 +170,7 @@ document
   .getElementById("downloadButton")
   .addEventListener("click", function () {
     window.location.href =
-      "https://drive.google.com/uc?export=download&id=17rbiDBRFL5pvs7TAIJ0oj9btBNtfPjrC";
+      "https://drive.usercontent.google.com/download?id=17rbiDBRFL5pvs7TAIJ0oj9btBNtfPjrC&export=download&authuser=0";
     document.getElementById("downloadButton").textContent = "File Downloaded";
     document.getElementById("downloadButton").disabled = true;
   });
